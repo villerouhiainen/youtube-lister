@@ -1,0 +1,320 @@
+body {
+    background-color: #EEE;
+    overflow-x: hidden;
+}
+
+#window {
+    margin: 0 auto;
+    width: 900px;
+    background-color: rgb(255, 255, 255);
+}
+
+#content {
+    overflow: hidden;
+}
+
+#content .header {
+    padding: 0px 0px 0px 15px;
+    overflow: hidden;
+}
+
+#content .header .left {
+    float: left;
+    overflow: hidden;
+}
+
+#content .header h1 {
+    float: left;
+    width: 100%;
+}
+
+#content .header .slogan {
+    display: block;
+    float: left;
+}
+
+#content .header #login {
+    float: right;
+    width: 200px;
+    padding: 21px 15px 0px 0px;
+}
+
+#content .header #login #login-username, #content .header #login #login-password {
+    font-size: 10px;
+    height: 30px;
+}
+
+#wrapper {
+    position: relative;
+}
+
+#options {
+    padding: 0px 14px 0px 14px;
+}
+
+#holder #options .addVideo {
+    width: 50%;
+}
+
+#options .addVideo, #options .addList {
+    display: none;
+}
+
+button#buttonAddVideo, button#buttonAddList, button#buttonSharelist {
+    margin: 0px 0px 6px 0px;
+}
+
+#holder {
+    overflow: hidden;
+}
+
+#holder #menu {
+    height: 86px;
+    width: 100%;
+    position: relative;
+    padding: 0px 0px 0px 15px;
+}
+
+#holder #menu .left{
+    overflow: hidden;
+    width: 50%;
+    float: left;
+}
+
+#holder #menu .right{
+    float: left;
+    width: 50%;
+}
+
+#holder #menu .right .sorting{
+    float: right;
+    padding: 0px 10px 0px 0px;
+}
+
+#holder #menu .right .descr {
+    float: right;
+    margin: -19px 0px 0px 0px;
+}
+
+.input-group.videoInfo input {
+    height: 44px;
+}
+
+.input-group.videoInfo.rating {
+   width: 200px;
+}
+
+.input-group.videoInfo.rating input {
+padding: 6px 12px;
+font-size: 14px;
+line-height: 1.42857143;
+color: #555;
+background-color: #FFF;
+background-image: none;
+border: 1px solid #CCC;
+border-radius: 4px;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+-webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+}
+
+.input-group.videoInfo.rating input:focus {
+border-color: #66AFE9;
+outline: 0;
+-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6);
+box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6);
+}
+
+.input-group.videoInfo.rating input {
+   width: 180px;
+}
+
+.input-group {
+    padding-bottom: 5px;
+}
+
+
+.input-group.searcher {
+    width: 250px;
+    float: left;
+    padding: 10px 0px 13px 0px;
+}
+
+.input-group.searcher input{
+    width: 250px;
+}
+
+#holder .chooseList {
+    float: right;
+    margin: -20px 0px 0px 0px;
+}
+
+#holder .chooseList a {
+    color: #000000;
+}
+
+#holder table {
+    width: 100%;
+    border-spacing: 0;
+    border-collapse: collapse;
+    overflow: hidden;
+}
+
+#holder table tr {
+    height: 23px;
+    background-color: rgb(228, 228, 228);
+    height: 100px;
+    width: 100%;
+    overflow: hidden;
+    border-bottom: 2px solid rgb(0, 0, 0);
+    -webkit-transition: all 0.5s ease-in-out;
+    -moz-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+    transition: all 0.5s ease-in-out;
+
+}
+
+#holder table td {
+    -moz-box-shadow: 0 4px 2px -3px rgba(0, 0, 0, 0.5) inset;
+    -webkit-box-shadow: 0 4px 2px -3px rgba(0, 0, 0, 0.5) inset;
+    box-shadow: 0 4px 2px -3px rgba(0, 0, 0, 0.5) inset;
+}
+
+#holder table tr:hover  {
+    background-color: #FFFFFF;
+    color:#000000; 
+}
+
+#holder table tr:nth-child(odd){
+    background-color: rgb(39, 39, 39);
+    color: rgb(255, 255, 255);
+}
+
+#holder table tr:nth-child(odd):hover { 
+    background-color: #000000;
+    color:#fff; 
+}
+
+
+
+#holder table tr:nth-last-child(1) {
+    border-bottom: 0px solid rgb(0, 0, 0);
+}
+
+#holder table #th {
+    height: 23px;
+    font-size: 11px;
+    font-weight: lighter;
+    color: #D3D3D3;
+}
+
+#holder table tr.song a{
+    color: rgb(0, 0, 0);
+}
+
+#holder table tr:nth-child(odd).song a{
+    color: rgb(255, 255, 255);
+}
+
+#holder table tr .nr {
+    width: 29px;
+    text-align: center;
+}
+
+#holder table tr .uploader {
+    font-size: 10px;
+    color: #6F6F6F;
+    opacity: 0.5;
+}
+
+#holder table tr .image img{
+    height: 54px;
+}
+
+#holder table tr .time {
+    color: #FFF000;
+    position: absolute;
+    background-color: #000;
+    opacity: 0.7;
+    color: #FAFAFA;
+    font-size: 11px;
+    left: 103px;
+    margin-top: 39px;
+    font-weight: bold;
+}
+    
+#holder table tr td .setup {
+    width: 100px;
+    background-color: #FF4545;
+    position: absolute;
+    margin-left: 135px;
+    height: 98px;
+    opacity: 0.9;
+    margin-top: -59px;
+    
+}
+
+#holder table tr td .views, #holder table tr td .date {
+   font-size: 12px;
+}
+
+#footer {
+    width: 100%;
+}
+
+#footer .left, #footer .right {
+    float: left;
+    width: 50%;
+}
+
+#holder #menu .right .list {
+    float: right;
+}
+
+#holder #menu .right {
+    padding: 32px 13px 0px 0px;
+}
+
+
+
+#footer .copy {
+    color: rgb(199, 199, 199);
+}
+
+.pagination>.active>a, .pagination>.active>a:hover{
+    background-color: #3F3F3F;
+    border-color: #000;
+}
+
+.pagination>li>a, .pagination>li>span {
+    color: #000;
+}
+
+.pagination>li>a:hover {
+    color: #000;
+    background-color: #EEE;
+    border-color: #B4B4B4;
+}
+
+.icon-large.icon-list {
+    background-position: -44px -1825px;
+}
+
+.icon-large.icon-link {
+    background-position: 0 -1673px;
+}
+
+.btn-group>.btn:first-child {
+    font-weight: bold;
+    color: #000;
+}
+
+
+
+#loginButton {
+    height: 26px;
+    font-size: 10px;
+    padding: 0px 10px 0px 10px;
+}
+
