@@ -9,7 +9,7 @@
 </head>
 <body>
  
-    <script type="text/x-handlebars" data-template-name="lister">
+    <script type="text/x-handlebars" data-template-name="video">
         <div id="window">
             <div id="content">
                 <div class="header">
@@ -82,7 +82,7 @@
                     <hr />
                         <div id="menu">
                             <div class="left">
-                                <span class="descr">listing total of {{totalVideos}} songs from list `<b>all</b>`</span>
+                                <span class="descr">listing total of songs from list `<b>all</b>`</span>
                                 <div class="search">
                                     <div class="input-group searcher">
                                         <input type="text" class="form-control" placeholder="search">
@@ -126,7 +126,7 @@
                         <table>
                             {{#each}}
                                 <tr class="song">
-                                    <td class="nr">1</td>
+                                    <td class="nr">{{totalVideos}} </td>
                                     <td class="image">
                                         <span class="time">5:59</span>
                                         <a href="#">

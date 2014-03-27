@@ -3,7 +3,7 @@ window.App = Ember.Application.create();
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
 
 App.Router.map(function () {
-    this.resource('lister', {
+    this.resource('video', {
         path: '/'
     });
 });
@@ -15,13 +15,13 @@ App.Video = DS.Model.extend({
     views: DS.attr('string')
 });
 
-App.ListerRoute = Ember.Route.extend({
+App.VideoRoute = Ember.Route.extend({
     model: function () {
-        return this.store.find('Video');
+        return this.store.find('video');
     }
 });
 
-App.ListerController = Ember.ArrayController.extend({
+App.VideoController = Ember.ArrayController.extend({
   addVideoError: false,
     actions: {
         addVideo: function () {
