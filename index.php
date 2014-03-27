@@ -60,7 +60,7 @@
                                         </div>
                                     </div>
                                     <div class="input-group videoInfo rating">
-                                        {{view Lister.NumberField type="number" class="form-control" min="0.0" max="5.0" step="0.1" placeholder="rating" value=rating}}
+                                        {{view App.NumberField type="number" class="form-control" min="0.0" max="5.0" step="0.1" placeholder="rating" value=rating}}
                                         <div class="input-group-btn">
                                             <button class="btn btn-default" type="submit" tabindex="2"><i class="icon-star icon-large"></i></button>
                                         </div>
@@ -123,7 +123,7 @@
                                 </div>
                             </div>
                         </div>
-                        <table id="list-list">
+                        <table>
                             {{#each}}
                                 <tr class="song">
                                     <td class="nr">1</td>
@@ -134,14 +134,14 @@
                                         </a>
                                     </td>
                                     <td class="title">
-                                        <a href="#">{{title}}</a><br />
+                                        <a href="#">{{title}} {{title.length}}</a><br />
                                         <span  class="uploader"><a href="#">TheSoundYouNeed</a> (uploaded 11.1.2014)</span>
                                     </td>
                                     <td class="info">
                                         <span class="keywords">{{keywords}}</span>
                                     </td>
                                     <td class="info">
-                                        <span class="views">965 610 views</span>
+                                        <span class="views">{{views}}</span>
                                     </td>
                                     <td class="rating">{{rating}}
                                         <div class="setup">

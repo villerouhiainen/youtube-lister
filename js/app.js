@@ -1,56 +1,49 @@
-window.Lister = Ember.Application.create();
+window.App = Ember.Application.create();
 
-Lister.ApplicationAdapter = DS.FixtureAdapter.extend();
+App.ApplicationAdapter = DS.FixtureAdapter.extend();
 
-Lister.Router.map(function () {
+App.Router.map(function () {
     this.resource('lister', {
         path: '/'
     });
 });
 
-Lister.List = DS.Model.extend({
-    title: DS.attr('string')
+App.Video = DS.Model.extend({
+    title: DS.attr('string'),
+    keywords: DS.attr('string'),
+    rating: DS.attr('string'),
+    views: DS.attr('string')
 });
 
-Lister.ListerRoute = Ember.Route.extend({
+App.ListerRoute = Ember.Route.extend({
     model: function () {
-        return this.store.find('list');
+        return this.store.find('Video');
     }
 });
 
-
-Lister.NumberField = Ember.TextField.extend({
-    attributeBindings: ['min', 'max', 'step']
-});
-
-
-Lister.ListerController = Ember.ArrayController.extend({
+App.ListerController = Ember.ArrayController.extend({
   addVideoError: false,
     actions: {
         addVideo: function () {
             var url = this.get('url');
             var keywords = this.get('keywords');
             var rating = this.get('rating');
+            var views = '';
             
             if(url === "" || typeof url == "undefined") {
                 this.set("addVideoError", true);
             }
-
-            var list = this.store.createRecord('list', {
+            
+            var video = this.store.createRecord('video', {
                 title: 'get title of url: '+ url +'',
                 keywords: keywords,
-                rating: rating
+                rating: rating,
+                views: 'get views of url: '+ url +''
             });
         }
-    },
-        totalVideos: function() {
-            var count =  $('tr').size();
-            if(count === 0) {
-                //this.set("noVideosFound", true);
-            }
-            return count;
-        }.property('tr.length')
+    }
 });
+
 
 
 var runTime = 0;
@@ -87,8 +80,12 @@ Ember.View.reopen({
     }
 });
 
+App.NumberField = Ember.TextField.extend({
+    attributeBindings: ['min', 'max', 'step']
+});
+
 // testing
-Lister.List.FIXTURES = [{
+App.Video.FIXTURES = [{
     id: 1,
     title: 'list/song title'
 }];
