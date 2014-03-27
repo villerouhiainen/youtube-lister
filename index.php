@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+ 
     <script type="text/x-handlebars" data-template-name="lister">
         <div id="window">
             <div id="content">
@@ -42,22 +43,32 @@
                                 <span class="icon-link icon-large"></span> share current list
                             </button>
                             <div class="addVideo">
-                                <div class="input-group videoInfo">
-                                    <input type="text" class="form-control" placeholder="url" id="videoUrl">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" type="submit"  tabindex="1"><i class="icon-link icon-large"></i></button>
+                                <form class="form-horizontal" {{action "addVideo" on="submit"}}>
+                                    {{#if addVideoError}}
+                                        <div class="alert alert-danger">Please check your inputs.</div>
+                                    {{/if}}
+                                    <div class="input-group videoInfo">
+                                        {{input type="text" class="form-control" placeholder="url" value=url}}
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" type="submit" tabindex="2"><i class="icon-link icon-large"></i></button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="input-group videoInfo">
-                                    <input type="text" class="form-control" placeholder="keywords, used in search">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-default" type="submit" tabindex="2"><i class="icon-tags icon-large"></i></button>
+                                    <div class="input-group videoInfo">
+                                        {{input type="text" class="form-control" placeholder="keywords" value=keywords}}
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" type="submit" tabindex="2"><i class="icon-tags icon-large"></i></button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="input-group videoInfo rating">
-                                    <input type="number" name="quantity" min="1" max="5" step="0.1" placeholder="rating"><span class="input-group-addon" style="background-color: #FFF;"><i class="icon-star icon-large"></i></span>
-                                </div>
-                                <button class="btn btn-success">add</button>
+                                    <div class="input-group videoInfo rating">
+                                        {{view Lister.NumberField type="number" class="form-control" min="0.0" max="5.0" step="0.1" placeholder="rating" value=rating}}
+                                        <div class="input-group-btn">
+                                            <button class="btn btn-default" type="submit" tabindex="2"><i class="icon-star icon-large"></i></button>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-success" type="submit">add</button>
+                                </form>
+
+
                             </div>
                             <div class="addList">
                                 <div class="input-group videoInfo">
@@ -66,13 +77,12 @@
                                         <button class="btn btn-default" type="submit"  tabindex="1"><i class="icon-tag icon-large"></i></button>
                                     </div>
                                 </div>
-                                <button class="btn btn-success">add</button>
                             </div>
                         </div>
                     <hr />
                         <div id="menu">
                             <div class="left">
-                                <span class="descr">listing total of 5 songs from list `<b>all</b>`</span>
+                                <span class="descr">listing total of {{totalVideos}} songs from list `<b>all</b>`</span>
                                 <div class="search">
                                     <div class="input-group searcher">
                                         <input type="text" class="form-control" placeholder="search">
@@ -112,9 +122,9 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>{{input type="text" id="new-list" placeholder="add video" value=newTitle action="createList"}}
+                        </div>
                         <table id="list-list">
-                            {{#each itemController="list"}}
+                            {{#each}}
                                 <tr class="song">
                                     <td class="nr">1</td>
                                     <td class="image">
@@ -124,18 +134,16 @@
                                         </a>
                                     </td>
                                     <td class="title">
-                                        <a href="#">
-                                            <label {{action "editList" on="doubleClick"}}>{{title}}</label>
-                                        </a><br />
+                                        <a href="#">{{title}}</a><br />
                                         <span  class="uploader"><a href="#">TheSoundYouNeed</a> (uploaded 11.1.2014)</span>
                                     </td>
                                     <td class="info">
-                                        <span class="keywords">funny, chill</span>
+                                        <span class="keywords">{{keywords}}</span>
                                     </td>
                                     <td class="info">
                                         <span class="views">965 610 views</span>
                                     </td>
-                                    <td class="rating">4.1
+                                    <td class="rating">{{rating}}
                                         <div class="setup">
                                             <i class="icon-trash icon-large"></i><br />
                                             <i class="icon-edit icon-large"></i><br />
@@ -158,7 +166,7 @@
                 <hr />
                 <div id="footer">
                     <div class="left">
-                        <span class="copy">&copy; Ville Rouhiainen <?php echo date('Y'); ?></span>
+                        <span class="copy">Created by Ville Rouhiainen <?php echo date('Y'); ?></span>
                     </div>
                     <div class="right"></div>
                 </div>
