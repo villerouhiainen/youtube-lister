@@ -3,7 +3,7 @@ window.App = Ember.Application.create();
 App.ApplicationAdapter = DS.FixtureAdapter.extend();
 
 App.Router.map(function () {
-    this.resource('video', {
+    this.resource('videos', {
         path: '/'
     });
 });
@@ -15,14 +15,19 @@ App.Video = DS.Model.extend({
     views: DS.attr('string')
 });
 
-App.VideoRoute = Ember.Route.extend({
-    model: function () {
+App.VideosRoute = Ember.Route.extend({
+    model: function() {
         return this.store.find('video');
+    },
+    getTotalVideos: function() {
+        return this.store.find('video').length;
     }
 });
 
-App.VideoController = Ember.ArrayController.extend({
-  addVideoError: false,
+App.VideosController = Ember.ArrayController.extend({
+    addVideoError: false,
+    loginFailed: false,
+
     actions: {
         addVideo: function () {
             var url = this.get('url');
@@ -40,11 +45,26 @@ App.VideoController = Ember.ArrayController.extend({
                 rating: rating,
                 views: 'get views of url: '+ url +''
             });
+        },
+        login: function() {
+        this.setProperties({
+            loginFailed: false
+        });
+
+        var _self = this;
+        var request = $.post("./login.php", _self.getProperties("username", "password"), function(data) {
+            data = JSON.parse(data);
+            if(data.loggedIn === true) {
+                document.location = "/welcome";
+            } else {
+                _self.set("loginFailed", true);
+            }
+        });
+        
+        
         }
-    }
+      }
 });
-
-
 
 var runTime = 0;
 Ember.View.reopen({
@@ -90,4 +110,10 @@ App.Video.FIXTURES = [{
     title: 'list/song title'
 }];
 
+
+App.IndexController = Ember.Controller.extend({
+
+  
+
+});
 

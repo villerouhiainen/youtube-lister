@@ -9,7 +9,7 @@
 </head>
 <body>
  
-    <script type="text/x-handlebars" data-template-name="video">
+    <script type="text/x-handlebars" data-template-name="videos">
         <div id="window">
             <div id="content">
                 <div class="header">
@@ -18,15 +18,22 @@
                         <span class="slogan">create your own and better 'youtube like' listing!</span>
                     </div>
                     <div id="login">
-                        <div class="input-group">
-                            <input id="login-username" type="text" class="form-control" name="username" value="" placeholder="username or email">                                        
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        </div>
-                        <div class="input-group">
-                            <input id="login-password" type="password" class="form-control" name="password" placeholder="password">
-                            <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        </div>
-                        <button class="btn btn-default btn-sm" id="loginButton"><span class="glyphicon glyphicon-arrow-right"></span> log in</button> or <a href="#">sign up</a>
+                        <form class="form-horizontal" {{action "login" on="submit"}}>
+                            {{#if loginFailed}}
+                                <div class="alert">Invalid username or password.</div>
+                            {{/if}}
+                              
+                            <div class="input-group">
+                                {{input value=username type="text" class="form-control" placeholder="username or email"}}                                      
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                            </div>
+                            
+                            <div class="input-group">
+                                {{input value=password type="password" class="form-control" placeholder="password"}}
+                                <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                            </div>
+                            <button type="submit" class="btn btn-default btn-sm" {{bindAttr disabled="isProcessing"}}>log in</button> or <a href="#">sign up</a>
+                        </form>
                     </div>
                 </div>
                 <hr />
@@ -82,7 +89,8 @@
                     <hr />
                         <div id="menu">
                             <div class="left">
-                                <span class="descr">listing total of songs from list `<b>all</b>`</span>
+                                <span class="descr">
+                                    listing {{model.length}} video from list `<b>all</b>`</span>
                                 <div class="search">
                                     <div class="input-group searcher">
                                         <input type="text" class="form-control" placeholder="search">
@@ -124,9 +132,9 @@
                             </div>
                         </div>
                         <table>
-                            {{#each}}
+                            {{#each video in model}}
                                 <tr class="song">
-                                    <td class="nr">{{totalVideos}} </td>
+                                    <td class="nr">1</td>
                                     <td class="image">
                                         <span class="time">5:59</span>
                                         <a href="#">
@@ -134,16 +142,16 @@
                                         </a>
                                     </td>
                                     <td class="title">
-                                        <a href="#">{{title}} {{title.length}}</a><br />
+                                        <a href="#">{{video.title}}</a><br />
                                         <span  class="uploader"><a href="#">TheSoundYouNeed</a> (uploaded 11.1.2014)</span>
                                     </td>
                                     <td class="info">
-                                        <span class="keywords">{{keywords}}</span>
+                                        <span class="keywords">{{video.keywords}}</span>
                                     </td>
                                     <td class="info">
-                                        <span class="views">{{views}}</span>
+                                        <span class="views">{{video.views}}</span>
                                     </td>
-                                    <td class="rating">{{rating}}
+                                    <td class="rating">{{video.rating}}
                                         <div class="setup">
                                             <i class="icon-trash icon-large"></i><br />
                                             <i class="icon-edit icon-large"></i><br />
