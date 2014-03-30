@@ -71,7 +71,7 @@
                                         <div class="input-group-btn">
                                             <button class="btn btn-default" type="submit" tabindex="2"><i class="icon-star icon-large"></i></button>
                                         </div>
-                                    </div>
+                                    </div><div id="loading" style="display: none;">loading..</div>
                                     <button class="btn btn-success" type="submit">add</button>
                                 </form>
 
@@ -93,10 +93,10 @@
                                     listing {{model.length}} video from list `<b>all</b>`</span>
                                 <div class="search">
                                     <div class="input-group searcher">
-                                        <input type="text" class="form-control" placeholder="search">
+                                        {{view Ember.TextField valueBinding=filter class="form-control" placeholder="search"}}
                                         <div class="input-group-btn">
                                             <button class="btn btn-default" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-                                        </div>
+                                        </div>                       
                                     </div>
                                 </div>
                             </div>
@@ -131,31 +131,27 @@
                                 </div>
                             </div>
                         </div>
-                        <table>
-                            {{#each video in model}}
+                        <table  class="sortable">
+                            {{#each video in filteredVideos}}
                                 <tr class="song">
-                                    <td class="nr">1</td>
+                                    <td class="nr">{{video.id}}</td>
                                     <td class="image">
-                                        <span class="time">5:59</span>
-                                        <a href="#">
-                                            <img src="https://i1.ytimg.com/vi/VJ6ofd0pB_c/mqdefault.jpg" />
+                                        <a {{bindAttr href="video.link"}}>
+                                            <span class="time">{{video.length}}</span>
+                                            <img {{bind-attr src=video.image}} />
                                         </a>
                                     </td>
                                     <td class="title">
-                                        <a href="#">{{video.title}}</a><br />
-                                        <span  class="uploader"><a href="#">TheSoundYouNeed</a> (uploaded 11.1.2014)</span>
+                                        <a {{bindAttr href="video.link"}}>{{video.title}}</a><br />
+                                        <span  class="uploader"><a {{bindAttr href="video.channelLink"}}>{{video.uploader}}</a> (uploaded {{video.uploaded}}, views {{video.views}})</span>
                                     </td>
-                                    <td class="info">
+                                    <td class="keywords">
                                         <span class="keywords">{{video.keywords}}</span>
-                                    </td>
-                                    <td class="info">
-                                        <span class="views">{{video.views}}</span>
                                     </td>
                                     <td class="rating">{{video.rating}}
                                         <div class="setup">
-                                            <i class="icon-trash icon-large"></i><br />
-                                            <i class="icon-edit icon-large"></i><br />
-                                            <i class="icon-cog icon-large"></i>
+                                            <button type="button" style="float: right;" class="btn btn-default btn-xs" {{action "removeVideo" video on="click"}}><span class="glyphicon glyphicon-trash"></span></button><button type="button" style="float: right;" class="btn btn-default btn-xs" {{action "removeVideo" video on="click"}}><span class="glyphicon glyphicon-pencil"></span> Edit</button>
+                                            
                                         </div>
                                     </td>
                                 </tr>
@@ -188,6 +184,5 @@
     <script src="js/libs/ember-data.js"></script>
     <script src="js/app.js"></script>
     <script src="js/libs/bootstrap.min.js"></script>
-    <script src="js/ui.js"></script>
 </body>
 </html>

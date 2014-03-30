@@ -7,8 +7,7 @@ $loginData = [];
 if($username === "admin" && $password === "password") {
     $loginData['loggedIn'] = true; 
     $loginData['username'] = "admin"; 
-}
-else {
+} else {
     $loginData['loggedIn'] = false;
 }
 echo json_encode($loginData);
