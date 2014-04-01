@@ -60,6 +60,13 @@ body {
     display: none;
 }
 
+.videoSuccess {
+    display: none;
+    color: #23A05F;
+    font-weight: bold;
+    padding: 0px 0px 0px 10px;
+}
+
 button#buttonAddVideo, button#buttonAddList, button#buttonSharelist {
     margin: 0px 0px 6px 0px;
 }
@@ -105,25 +112,24 @@ button#buttonAddVideo, button#buttonAddList, button#buttonSharelist {
 }
 
 .input-group.videoInfo.rating input {
-padding: 6px 12px;
-font-size: 14px;
-line-height: 1.42857143;
-color: #555;
-background-color: #FFF;
-background-image: none;
-border: 1px solid #CCC;
-border-radius: 4px;
--webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
--webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #FFF;
+    background-image: none;
+    border: 1px solid #CCC;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -webkit-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
 .input-group.videoInfo.rating input:focus {
-border-color: #66AFE9;
-outline: 0;
--webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6);
-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6);
+    border-color: #66AFE9;
+    outline: 0;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6);
 }
 
 .input-group.videoInfo.rating input {
@@ -255,16 +261,16 @@ box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075),0 0 8px rgba(102, 175, 233, 0.6
 
 
 #holder table tr .time {
-padding: 0 4px;
-position: absolute;
-font-weight: bold;
-font-size: 11px;
-background-color: #000;
-color: #FFF;
-height: 14px;
-opacity: .75;
-filter: alpha(opacity=75);
-display: -moz-inline-stack;
+    padding: 0 4px;
+    position: absolute;
+    font-weight: bold;
+    font-size: 11px;
+    background-color: #000;
+    color: #FFF;
+    height: 14px;
+    opacity: .75;
+    filter: alpha(opacity=75);
+    display: -moz-inline-stack;
 }
 
 #holder table tr td .views, #holder table tr td .date {

@@ -55,19 +55,19 @@
                                         <div class="alert alert-danger">Please check your inputs.</div>
                                     {{/if}}
                                     <div class="input-group videoInfo">
-                                        {{input type="text" class="form-control" placeholder="url" value=url}}
+                                        {{input type="text" class="form-control url" placeholder="url" value=url}}
                                         <div class="input-group-btn">
                                             <button class="btn btn-default" type="submit" tabindex="2"><i class="icon-link icon-large"></i></button>
                                         </div>
                                     </div>
                                     <div class="input-group videoInfo">
-                                        {{input type="text" class="form-control" placeholder="keywords" value=keywords}}
+                                        {{input type="text" class="form-control" placeholder="keywords (optional)" value=keywords}}
                                         <div class="input-group-btn">
                                             <button class="btn btn-default" type="submit" tabindex="2"><i class="icon-tags icon-large"></i></button>
                                         </div>
                                     </div>
                                     <div class="input-group videoInfo rating">
-                                        {{view App.NumberField type="number" class="form-control" min="0.0" max="5.0" step="0.1" placeholder="rating" value=rating}}
+                                        {{view App.NumberField type="number" class="form-control" min="0.0" max="5.0" step="0.1" placeholder="rating (optional)" value=rating}}
                                         <div class="input-group-btn">
                                             <button class="btn btn-default" type="submit" tabindex="2"><i class="icon-star icon-large"></i></button>
                                         </div>
@@ -90,7 +90,8 @@
                         <div id="menu">
                             <div class="left">
                                 <span class="descr">
-                                    listing {{model.length}} video from list `<b>all</b>`</span>
+                                    listing {{model.length}} video from list `<b>all</b>`
+                                    <span class="videoSuccess">1 video successfully added</span></span>
                                 <div class="search">
                                     <div class="input-group searcher">
                                         {{view Ember.TextField valueBinding=filter class="form-control" placeholder="search"}}
