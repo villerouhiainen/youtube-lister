@@ -64,17 +64,62 @@ function getVideoId(url, _self){
     }
 }
 
-function getVideoExistence(videoId, totalVideos, _self) {
-    var video = _self.store.find('video');
+function getVideoExistence(videoId, totalVideos, _self, callback) {
+    var videosCount = 0;
+    var addAlreadyFound = [];
+    var found = [];
     for(var i = 1; i<=totalVideos; i++) {
         _self.store.find('video', i).then(function(post) {
-            if(videoId == post._data.videoId) {
-                alert('video already found');
-                // prevent duplicate videos? ask if user wants to have two same videos?
+            videosCount++;
+            if(videoId == post._data.videoId && !(found.indexOf(true) > -1)) {
+                addAlreadyFound[i] = confirm('This video already exists in this list. Would you like to add it anyway?');
+                    
+                if(addAlreadyFound[i] == false) {
+                    addAlreadyFound[i] = false;
+                    found[i] = true;
+                }
+
+            } else {
+                if(found.indexOf(true) > -1) {
+                    addAlreadyFound[i] = false;
+                } else {
+                    addAlreadyFound[i] = true;
+                }
+            }
+
+            if(videosCount === totalVideos) {
+                if(addAlreadyFound.indexOf(false) > -1) {
+                    addAlreadyFound = false;
+                } else {
+                    if(found.indexOf(true) > -1) {
+                        addAlreadyFound = false;
+                    } else {
+                        addAlreadyFound = true;
+                    }
+                }
+                callback(addAlreadyFound);
             }
         });
     }
-    return false;
+}
+
+function formatSeconds(seconds) {
+    var formattedTime = '';
+    var mins = ~~(seconds / 60);
+    var secs = seconds % 60;
+
+    // Hours, minutes and seconds
+    var hrs = ~~(seconds / 3600);
+    var mins = ~~((seconds % 3600) / 60);
+    var secs = seconds % 60;
+
+    if (hrs > 0) {
+        formattedTime += "" + hrs + ":" + (mins < 10 ? "0" : "");
+    }
+
+    formattedTime += "" + mins + ":" + (secs < 10 ? "0" : "");
+    formattedTime += "" + secs;
+    return formattedTime;    
 }
 
 function videoAdded(_self) {
@@ -90,42 +135,42 @@ function videoAdded(_self) {
 function addVideo(videoId, keywords, rating, _self, totalVideos) {
     var videoData = [];
     jQuery('#loading').show();
-    var videoExists = getVideoExistence(videoId, totalVideos, _self);
-    if(!videoExists) {
-    jQuery.getJSON('https://gdata.youtube.com/feeds/api/videos/' + videoId + '?v=2&alt=json',function(videoData, status, xhr){
-
-            var id = totalVideos + 1;
-            videoData['title'] =        videoData.entry.title.$t;
-            videoData['uploader'] =     videoData.entry.author[0].name.$t;
-            videoData['image'] =        videoData.entry.media$group.media$thumbnail[1].url;
-            videoData['length'] =       Math.floor(videoData.entry.media$group.yt$duration.seconds / 60) + ':' + (videoData.entry.media$group.yt$duration.seconds % 60);
-            videoData['uploaded'] =     new Date(videoData.entry.published.$t).toLocaleDateString();
-            videoData['views'] =        videoData.entry.yt$statistics.viewCount;
-            videoData['link'] =         videoData.entry.link[0].href;
-            videoData['channelLink'] =  'http://www.youtube.com/channel/' + videoData.entry.media$group.yt$uploaderId.$t;
-            videoData['views'] = videoData['views'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            var video = _self.store.find('video');
-            video = _self.store.createRecord('video', {
-                id: id,
-                order: id,
-                videoId: videoId,
-                title: videoData['title'],
-                uploader: videoData['uploader'],
-                image: videoData['image'],
-                length: videoData['length'],
-                uploaded: videoData['uploaded'],
-                keywords: keywords,
-                views: videoData['views'],
-                link: videoData['link'],
-                channelLink: videoData['channelLink'],
-                rating: rating
+    getVideoExistence(videoId, totalVideos, _self, function(alreadyFound) {
+        if(alreadyFound) {
+            jQuery.getJSON('https://gdata.youtube.com/feeds/api/videos/' + videoId + '?v=2&alt=json',function(videoData, status, xhr){
+                var id = totalVideos + 1;
+                videoData['title'] =        videoData.entry.title.$t;
+                videoData['uploader'] =     videoData.entry.author[0].name.$t;
+                videoData['image'] =        videoData.entry.media$group.media$thumbnail[1].url;
+                videoData['length'] =       formatSeconds(videoData.entry.media$group.yt$duration.seconds);
+                videoData['uploaded'] =     new Date(videoData.entry.published.$t).toLocaleDateString();
+                videoData['views'] =        videoData.entry.yt$statistics.viewCount;
+                videoData['link'] =         videoData.entry.link[0].href;
+                videoData['channelLink'] =  'http://www.youtube.com/channel/' + videoData.entry.media$group.yt$uploaderId.$t;
+                videoData['views'] =        videoData['views'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                var video = _self.store.find('video');
+                video = _self.store.createRecord('video', {
+                    id: id,
+                    order: id,
+                    videoId: videoId,
+                    title: videoData['title'],
+                    uploader: videoData['uploader'],
+                    image: videoData['image'],
+                    length: videoData['length'],
+                    uploaded: videoData['uploaded'],
+                    keywords: keywords,
+                    views: videoData['views'],
+                    link: videoData['link'],
+                    channelLink: videoData['channelLink'],
+                    rating: rating
+                });
+                video.save();
+                videoAdded(_self);
             });
-            video.save();
-            videoAdded(_self);
-        });
-    } else {
-        // throw an error, video already exists
-    }
+        } else {
+            jQuery('#loading').hide();
+        }
+    });
 }
 
 
@@ -178,8 +223,9 @@ App.VideosController = Ember.ArrayController.extend({
             });
         },
         
-        removeVideo: function(video){             
-                video.deleteRecord();
+        removeVideo: function(video){    
+            console.log(video + "deleted");         
+            video.deleteRecord();
         }
     },
     
@@ -224,8 +270,6 @@ App.NumberField = Ember.TextField.extend({
     attributeBindings: ['min', 'max', 'step']
 });
 
-
-
 App.Video.FIXTURES = [
     {
         id: 1,
@@ -243,4 +287,3 @@ App.Video.FIXTURES = [
         rating: '3.50'
     }
 ];
-
